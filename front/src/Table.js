@@ -17,7 +17,7 @@ class MyTable extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.query_id > 0) {
-      fetch("/api/" + nextProps.query_id, {
+      fetch("/api/" + nextProps.query_id+"?query_string="+nextProps.query_string, {
         method: 'GET',
         accept: 'application/json',
         headers: {

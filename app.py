@@ -13,14 +13,14 @@ app.config['MYSQL_DATABASE_DB'] = 'sketch'
 app.config['MYSQL_DATABASE_HOST'] = 'somethinglikethis.rds.amazonaws.com'
 mysql.init_app(app)
 
-@app.before_request
-def before():
-    g.db = mysql.connect()
-
-@app.after_request
-def after(response):
-    g.db.close()
-    return response
+# @app.before_request
+# def before():
+#     g.db = mysql.connect()
+#
+# @app.after_request
+# def after(response):
+#     g.db.close()
+#     return response
 
 @app.route('/api/<table>')
 def main(table):
@@ -40,6 +40,10 @@ WHERE c.course_subject IN ('Finance', 'Math')''')
     elif table == "3":
         cursor.execute("select * from Instructor")
         title = ["instructor_id", "course_id", "first_name", "last_name", "email", "password", "logged_status"]
+    elif table == "4":
+        s = request.args['query_string']
+        # use s to call procedure.
+        print(s)
     else:
         raise NotImplementedError
 
@@ -48,6 +52,8 @@ WHERE c.course_subject IN ('Finance', 'Math')''')
     for i in result:
         result_new.append({k:v for k,v in zip(title, i)})
     return jsonify(result_new)
+
+
 
 
 if __name__ == '__main__':

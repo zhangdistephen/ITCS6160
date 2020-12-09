@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField'
 import './App.css';
 import MyTable from "./Table";
 
@@ -12,7 +13,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query_id:0
+      query_id:0,
+      query_string:""
     }
   }
   componentDidMount() {
@@ -20,6 +22,9 @@ class App extends Component {
   handleClick(query_id) {
     this.setState({query_id})
 
+  }
+  handleChange(query_string){
+    this.setState({query_string})
   }
   render() {
     // const {items} = this.state;
@@ -49,13 +54,19 @@ class App extends Component {
                     Query3: All Instructors Information
                   </Button>
                 </Grid>
+                <Grid item xs={3} justify="center" alignItems="center">
+                  <TextField id="standard-search" label="Query String" type="search" onChange={(e)=>this.handleChange(e.target.value)} />
+                  <Button variant="contained" color="primary" onClick={()=>this.handleClick(4)}>
+                    Submit
+                  </Button>
+                </Grid>
               </Grid>
             </Paper>
           </Grid>
         </Grid>
         <Grid container spacing={3} justify="center" alignItems="center" style={{marginTop: 20}}>
         <Grid item xs={10}>
-            <MyTable query_id={this.state.query_id}></MyTable>
+            <MyTable query_id={this.state.query_id} query_string={this.state.query_string}></MyTable>
         </Grid>
         </Grid>
       </div>
