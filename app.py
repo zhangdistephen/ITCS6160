@@ -13,14 +13,14 @@ app.config['MYSQL_DATABASE_DB'] = 'sketch'
 app.config['MYSQL_DATABASE_HOST'] = 'somethinglikethis.rds.amazonaws.com'
 mysql.init_app(app)
 
-# @app.before_request
-# def before():
-#     g.db = mysql.connect()
-#
-# @app.after_request
-# def after(response):
-#     g.db.close()
-#     return response
+@app.before_request
+def before():
+    g.db = mysql.connect()
+
+@app.after_request
+def after(response):
+    g.db.close()
+    return response
 
 @app.route('/api/<table>')
 def main(table):
