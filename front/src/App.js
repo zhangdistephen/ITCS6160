@@ -14,17 +14,19 @@ class App extends Component {
     super(props);
     this.state = {
       query_id:0,
-      query_string:""
+      query_string:"",
+      temp_string:""
     }
   }
   componentDidMount() {
   }
   handleClick(query_id) {
-    this.setState({query_id})
+    this.setState({query_string:this.state.temp_string});
+    this.setState({query_id});
 
   }
   handleChange(query_string){
-    this.setState({query_string})
+    this.setState({temp_string:query_string});
   }
   render() {
     // const {items} = this.state;
@@ -38,14 +40,16 @@ class App extends Component {
               </Typography>
               <Grid container xs={12} justify="center" alignItems="center" style={{height: 200}}>
                 <Grid item xs={3} justify="center" alignItems="center">
+                  <TextField id="standard-search" label="Query String" type="search" onChange={(e)=>this.handleChange(e.target.value)} />
                   <Button variant="contained" color="primary" onClick={()=>this.handleClick(1)}>
-                    Query1: All Students Information
+                    GetStudentsBySubject
                   </Button>
                 </Grid>
                 <Divider orientation="vertical" flexItem style={{margin:20}}/>
                 <Grid item xs={3} justify="center" alignItems="center">
+                  <TextField id="standard-search" label="Query String" type="search" onChange={(e)=>this.handleChange(e.target.value)} />
                   <Button variant="contained" color="primary" onClick={()=>this.handleClick(2)}>
-                    Query2: Email of Students who select Finance or Math
+                    GetStudentsGradesBySubject
                   </Button>
                 </Grid>
                 <Divider orientation="vertical" flexItem style={{margin:20}}/>
@@ -54,12 +58,7 @@ class App extends Component {
                     Query3: All Instructors Information
                   </Button>
                 </Grid>
-                <Grid item xs={3} justify="center" alignItems="center">
-                  <TextField id="standard-search" label="Query String" type="search" onChange={(e)=>this.handleChange(e.target.value)} />
-                  <Button variant="contained" color="primary" onClick={()=>this.handleClick(4)}>
-                    Submit
-                  </Button>
-                </Grid>
+
               </Grid>
             </Paper>
           </Grid>
